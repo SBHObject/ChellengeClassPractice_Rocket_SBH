@@ -17,6 +17,8 @@ public class AchievementView : MonoBehaviour
         {
             GameObject newAchievement = Instantiate(achievementSlotPrefab, slotParent);
             achievementSlots.Add(achievements[i].threshold, newAchievement.GetComponent<AchievementSlot>());
+
+            newAchievement.GetComponent<AchievementSlot>().Init(achievements[i]);
         }
 
     }
