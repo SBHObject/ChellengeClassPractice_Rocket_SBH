@@ -16,8 +16,7 @@ public class AchievementView : MonoBehaviour
         for(int i = 0; i < achievements.Length; i++)
         {
             GameObject newAchievement = Instantiate(achievementSlotPrefab, slotParent);
-            achievementSlots[i] = newAchievement.GetComponent<AchievementSlot>();
-            achievementSlots[i].Init(achievements[i]);
+            achievementSlots.Add(achievements[i].threshold, newAchievement.GetComponent<AchievementSlot>());
         }
 
     }
@@ -25,5 +24,12 @@ public class AchievementView : MonoBehaviour
     public void UnlockAchievement(int threshold)
     {
         // UI 반영 로직
+        foreach(var achievement in achievementSlots)
+        {
+            if(achievement.Key <= threshold && achievement.Value.isUnlocked == false)
+            {
+                achievement.Value.MarkAsChecked();
+            }
+        }
     }
 }
