@@ -36,6 +36,12 @@ public class RocketMovementC : MonoBehaviour
 
     private void Rotate(float inputX)
     {
-        
+        Vector3 targetVector = new Vector3(-inputX, 0, 0);
+        float rotZ = Mathf.Atan2(targetVector.y, targetVector.x) * Mathf.Rad2Deg - 90;
+        Quaternion targetQ = Quaternion.Euler(0, 0, rotZ);
+        Quaternion dir = Quaternion.Slerp(transform.rotation, targetQ, ROTATIONSPEED);
+        Vector3 rotate = dir.eulerAngles;
+
+        transform.rotation = Quaternion.Euler(0, 0, rotate.z);
     }
 }
